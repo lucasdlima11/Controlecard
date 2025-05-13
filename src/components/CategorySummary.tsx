@@ -1,6 +1,6 @@
 import React from 'react';
-import { Purchase, Category } from '../types';
-import { getTotalByCategory, getTotal, getCategoryColor, getCategoryTextColor } from '../utils/categoryUtils';
+import { Category, Purchase } from '../types';
+import { getCategoryColor, getCategoryTextColor, getTotal, getTotalByCategory } from '../utils/categoryUtils';
 
 interface CategorySummaryProps {
   purchases: Purchase[];
@@ -17,7 +17,7 @@ const CategorySummary: React.FC<CategorySummaryProps> = ({ purchases }) => {
     });
   };
   
-  // Calculate percentages for each category
+  
   const percentages: Record<Category, number> = Object.entries(totalByCategory).reduce(
     (acc, [category, value]) => {
       acc[category as Category] = total > 0 ? (value / total) * 100 : 0;
@@ -32,8 +32,8 @@ const CategorySummary: React.FC<CategorySummaryProps> = ({ purchases }) => {
       
       <div className="space-y-3">
         {Object.entries(totalByCategory)
-          .filter(([_, value]) => value > 0) // Only show categories with spending
-          .sort(([_, valueA], [__, valueB]) => valueB - valueA) // Sort by highest value
+          .filter(([_, value]) => value > 0) 
+          .sort(([_, valueA], [__, valueB]) => valueB - valueA)
           .map(([category, value]) => (
             <div key={category} className="space-y-1">
               <div className="flex justify-between">
